@@ -15,84 +15,6 @@ All this happens in milliseconds.
 ## Download
 Download the newest SDK from [Here](https://www.google.com)
 
-
-## AndroidManifest.xml
-
-Permissions
-```
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-```
-
-
-Add the following lines under application tag in your Manifest
-```
-<!-- Chartboost -->
-<activity android:name="com.chartboost.sdk.CBImpressionActivity"
-    android:excludeFromRecents="true"
-    android:hardwareAccelerated="true"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-    android:configChanges="keyboardHidden|orientation|screenSize" />
-
-<!-- MoPub -->
-<activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
-<activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
-<activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
-<activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
-<activity android:name="com.mopub.mobileads.RewardedMraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
-
-<!-- Flurry Advertising -->
-<activity
-    android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
-    android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-
-<!-- Applovin -->
-<activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:configChanges="orientation|screenSize"/>
-<activity android:name="com.applovin.adview.AppLovinConfirmationActivity" android:configChanges="orientation|screenSize"/>
-
-<!-- Amazon ads -->
-<activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
-
-
-<!-- Unity ADS -->
-<activity
-    android:name="com.unity3d.ads.adunit.AdUnitActivity"
-    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-    android:hardwareAccelerated="true"
-    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-<activity
-    android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
-    android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-    android:hardwareAccelerated="false"
-    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-<!-- InMobi -->
-<activity
-    android:name="com.inmobi.rendering.InMobiAdActivity"
-    android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize|screenLayout"
-    android:hardwareAccelerated="true"
-    android:resizeableActivity="false"
-    android:theme="@android:style/Theme.NoTitleBar"
-    tools:ignore="UnusedAttribute" />
-
-<!-- IronSource -->
-<activity
-    android:name="com.ironsource.sdk.controller.ControllerActivity"
-    android:configChanges="orientation|screenSize"
-    android:hardwareAccelerated="true" />
-<activity
-    android:name="com.ironsource.sdk.controller.InterstitialActivity"
-    android:configChanges="orientation|screenSize"
-    android:hardwareAccelerated="true"
-    android:theme="@android:style/Theme.Translucent" />
-<activity
-    android:name="com.ironsource.sdk.controller.OpenUrlActivity"
-    android:configChanges="orientation|screenSize"
-    android:hardwareAccelerated="true"
-    android:theme="@android:style/Theme.Translucent" />
-```
-
-
 ## Usage & Implementation
 
 #### Prerequisites
@@ -105,6 +27,8 @@ Add the following lines under application tag in your Manifest
 3. Select the AppBidPlugin.unitypackage file.
 4. Import all of the files for the plugins by selecting Import. Make sure to check for any conflicts with files.
 
+#### Usage & Implementation
+In unity open AppBidSettings (Resoucres/AppBidSettings) and set your AppBid Key
 
 #### Loading & Showing Ads
 
@@ -132,62 +56,27 @@ Appbid.load()
 Appbid.showLoadedAd()```, when the ad isn't ready yet, then the SDK will show the ad once it's loaded.
 
 #### Listener
-Implement the following interface to listen to AppBid events - 
+Add listeners to listen to AppBid events (if need):
 
-```java
-
-public interface AdListener {
-    void onAdLoaded();
-    
-    void onAdFailed();
-    
-    void onAdOpened();
-    
-    void onAdClicked();
-    
-    void onAdClosed();
-}
 ```
-Use it as such - 
-```java
-Appbid.setAdListener(...);
+AppBid.AdLoaded += AdLoaded;
+AppBid.AdClosed += AdClosed;
+AppBid.AdFailed += AdFailed;
+AppBid.AdClicked += AdClicked;
+AppBid.AdOpened += AdOpened;
 ```
 
 One useful usecase for using the listener is loading an ad and showing it when it's ready - 
-```java
-AppBid.setAdListener(new AdListener() {
-    @Override
-    public void onAdLoaded() {
-        AppBid.showLoadedAd();
-    }
-
-    @Override
-    public void onAdFailed() {
-
-    }
-
-    @Override
-    public void onAdOpened() {
-
-    }
-
-    @Override
-    public void onAdClicked() {
-
-    }
-
-    @Override
-    public void onAdClosed() {
-
-    }
-});
-
-AppBid.load();
 ```
+AppBid.AdLoaded += AdLoaded;
+...
+void AdLoaded ()
+{
+  AppBit.ShowLoadedAd();
+}
+...
+AppBid.load()
 
-
-    
-
-
+```
 
 

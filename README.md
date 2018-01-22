@@ -72,7 +72,7 @@ AppBid.AdLoaded += AdLoaded;
 ...
 void AdLoaded ()
 {
-  AppBit.ShowLoadedAd();
+  AppBid.ShowLoadedAd();
 }
 ...
 AppBid.load()
